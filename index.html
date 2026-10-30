@@ -7,92 +7,113 @@
 <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
 <style>
 :root{
-  --ink:#0f1115;
-  --paper:#f1eee7;
-  --muted:#b8b1a7;
-  --accent:#78d6e6;
-  --gold:#c7a96b;
+  --almagre:#9f4a35;
+  --almagre-dark:#6f2f24;
+  --hueso:#efe7da;
+  --marfil:#f7f1e8;
+  --tinta:#161412;
+  --gris:#8b8178;
 }
 *{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#0d1014;font-family:Arial,Helvetica,sans-serif}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--hueso);font-family:Arial,Helvetica,sans-serif}
+
 #intro{
-  position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;
-  background:
-    linear-gradient(130deg,rgba(6,9,13,.94),rgba(14,20,27,.90)),
-    radial-gradient(circle at 74% 26%,rgba(120,214,230,.14),transparent 32%);
-  color:#fff;
+  position:fixed;inset:0;z-index:50;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);
+  background:var(--hueso);color:var(--tinta);
 }
-.intro-card{
-  width:min(980px,90vw);
-  padding:68px 0 54px;
-  border-top:1px solid rgba(255,255,255,.22);
-  border-bottom:1px solid rgba(255,255,255,.16);
+.intro-main{
+  position:relative;padding:clamp(42px,7vw,92px);display:flex;flex-direction:column;justify-content:space-between;
+  overflow:hidden;
+}
+.intro-main:before,
+.intro-main:after{
+  content:"";position:absolute;background:var(--almagre);opacity:.97;transform-origin:center;
+}
+.intro-main:before{
+  width:120%;height:54px;left:-8%;top:20%;transform:rotate(-8deg);
+}
+.intro-main:after{
+  width:68%;height:22px;right:-8%;bottom:19%;transform:rotate(16deg);
+}
+.intro-side{
+  position:relative;background:var(--almagre);color:var(--marfil);padding:clamp(36px,5vw,72px);
+  display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;
+}
+.intro-side:before{
+  content:"27";position:absolute;right:-18px;top:-30px;
+  font-family:"Bodoni 72","Didot","Bodoni MT",Georgia,serif;
+  font-size:clamp(190px,30vw,420px);line-height:.8;color:rgba(247,241,232,.12);letter-spacing:-.08em;
 }
 .kicker{
-  font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:#9bcdd4;margin-bottom:22px
+  position:relative;z-index:2;font-size:11px;letter-spacing:.22em;text-transform:uppercase;margin-bottom:26px
 }
 h1{
-  margin:0;
-  font-family:Georgia,"Times New Roman",serif;
-  font-weight:400;
-  font-size:clamp(44px,7vw,86px);
-  line-height:.96;
-  letter-spacing:-.035em;
-  max-width:900px;
+  position:relative;z-index:2;margin:0;max-width:850px;
+  font-family:"Bodoni 72","Didot","Bodoni MT",Georgia,serif;
+  font-weight:700;font-size:clamp(56px,8.5vw,118px);line-height:.80;letter-spacing:-.055em;
 }
 .lead{
-  max-width:720px;margin:26px 0 0;
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:clamp(17px,2vw,23px);
-  line-height:1.5;color:#d9d6cf;
+  position:relative;z-index:2;max-width:700px;margin:34px 0 0;font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(17px,1.9vw,24px);line-height:1.45
+}
+.side-copy{
+  position:relative;z-index:2;max-width:380px;font-family:Georgia,"Times New Roman",serif;font-size:18px;line-height:1.5
 }
 #enter{
-  margin-top:38px;padding:13px 26px;border-radius:999px;
-  border:1px solid rgba(120,214,230,.65);
-  background:rgba(120,214,230,.08);color:#fff;
-  font-size:12px;letter-spacing:.12em;text-transform:uppercase;
-  cursor:pointer;transition:.2s ease
+  position:relative;z-index:3;margin-top:34px;align-self:flex-start;
+  border:1px solid var(--tinta);background:transparent;color:var(--tinta);padding:13px 24px;
+  font-size:11px;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;transition:.2s ease
 }
-#enter:hover{background:#78d6e6;color:#0d1115}
-#hud{
-  position:fixed;z-index:25;left:18px;bottom:16px;
-  padding:10px 14px;border-radius:999px;
-  background:rgba(9,12,17,.66);border:1px solid rgba(255,255,255,.14);
-  color:#f2f0eb;font-size:12px;backdrop-filter:blur(8px)
-}
+#enter:hover{background:var(--tinta);color:var(--hueso)}
+
 #brand{
-  position:fixed;z-index:24;left:18px;top:16px;color:#fff;
-  font-size:11px;letter-spacing:.15em;text-transform:uppercase;opacity:.82
+  position:fixed;z-index:30;left:18px;top:16px;color:var(--marfil);
+  font-size:10px;letter-spacing:.18em;text-transform:uppercase;text-shadow:0 1px 7px rgba(0,0,0,.45)
+}
+#hud{
+  position:fixed;z-index:30;left:18px;bottom:16px;color:var(--marfil);
+  padding:9px 12px;background:rgba(22,20,18,.67);border:1px solid rgba(255,255,255,.16);
+  font-size:11px;letter-spacing:.03em;backdrop-filter:blur(8px)
 }
 #panel{
-  display:none;position:fixed;z-index:40;right:22px;top:22px;width:min(410px,calc(100vw - 44px));
-  padding:26px;background:rgba(245,242,235,.97);color:#161719;
-  border:1px solid rgba(255,255,255,.5);border-radius:14px;
-  box-shadow:0 24px 70px rgba(0,0,0,.36);backdrop-filter:blur(10px)
+  display:none;position:fixed;z-index:40;right:22px;top:22px;width:min(420px,calc(100vw - 44px));
+  padding:28px;background:rgba(247,241,232,.97);color:var(--tinta);
+  border-left:7px solid var(--almagre);box-shadow:0 20px 60px rgba(0,0,0,.28)
 }
-#panel .micro{font-size:10px;letter-spacing:.19em;text-transform:uppercase;color:#69757a}
-#panel h2{font-family:Georgia,"Times New Roman",serif;font-size:29px;font-weight:400;margin:8px 0 11px}
-#panel p{font-size:14px;line-height:1.6;color:#474c4e;margin:0}
-#close{position:absolute;right:12px;top:10px;border:0;background:none;font-size:24px;color:#333;cursor:pointer}
-@media(max-width:720px){
-  .intro-card{padding:48px 6px 40px}
-  #hud{left:10px;right:10px;bottom:10px;border-radius:9px;text-align:center}
-  #brand{left:12px;top:10px}
+#panel .micro{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--almagre)}
+#panel h2{
+  font-family:"Bodoni 72","Didot","Bodoni MT",Georgia,serif;font-size:31px;line-height:1;
+  margin:10px 0 14px;font-weight:700
+}
+#panel p{font-size:14px;line-height:1.6;color:#4c4641;margin:0}
+#close{position:absolute;right:12px;top:8px;border:0;background:none;font-size:24px;color:#4a403a;cursor:pointer}
+
+@media(max-width:760px){
+  #intro{grid-template-columns:1fr}
+  .intro-side{display:none}
+  .intro-main{padding:42px 26px}
+  #hud{left:10px;right:10px;bottom:10px;text-align:center}
 }
 </style>
 </head>
 <body>
 <div id="intro">
-  <div class="intro-card">
-    <div class="kicker">Congreso de la Generación del 27 · Sevilla 2027</div>
-    <h1>Museo virtual<br>Generación del 27</h1>
-    <div class="lead">Un espacio inmersivo para recorrer documentos, imágenes y memoria cultural desde Sevilla hacia las redes del 27.</div>
-    <button id="enter">Entrar en el museo</button>
-  </div>
+  <section class="intro-main">
+    <div>
+      <div class="kicker">Recuérdalo a otros · Sevilla 2027</div>
+      <h1>Museo<br>virtual del 27</h1>
+      <div class="lead">Un recorrido inmersivo por imágenes, documentos y redes culturales de una generación que desbordó la literatura.</div>
+      <button id="enter">Entrar en la exposición</button>
+    </div>
+    <div class="kicker">Actividad paralela al Congreso Internacional sobre la Generación del 27</div>
+  </section>
+  <aside class="intro-side">
+    <div class="side-copy">Sevilla como punto de encuentro. 1927 como fecha simbólica. El archivo como materia viva y espacio de navegación.</div>
+  </aside>
 </div>
 
-<div id="brand">Museo Virtual · Generación del 27</div>
-<div id="hud">WASD / flechas · ratón para mirar · clic sobre una obra</div>
+<div id="brand">Museo virtual · Generación del 27</div>
+<div id="hud">WASD / flechas · arrastra para mirar · clic sobre una obra</div>
 
 <div id="panel">
   <button id="close" aria-label="Cerrar">×</button>
@@ -103,8 +124,8 @@ h1{
 
 <a-scene
   renderer="antialias:true; colorManagement:true; physicallyCorrectLights:true"
-  background="color:#10151b"
-  fog="type:linear; color:#10151b; near:23; far:44">
+  background="color:#1a1816"
+  fog="type:linear; color:#1a1816; near:25; far:46">
 
   <a-assets>
     <img id="f1" src="assets/img/foto-01.svg">
@@ -115,146 +136,147 @@ h1{
     <img id="f6" src="assets/img/foto-06.svg">
   </a-assets>
 
-  <!-- Suelo y plataforma central -->
-  <a-plane rotation="-90 0 0" width="30" height="24"
-           material="color:#20262c; metalness:.15; roughness:.38"></a-plane>
-  <a-cylinder position="0 .11 1.2" radius="4.15" height=".22"
-              material="color:#2a3138; metalness:.25; roughness:.28"></a-cylinder>
+  <!-- Suelo -->
+  <a-plane rotation="-90 0 0" width="34" height="28"
+           material="color:#2a2521; roughness:.62; metalness:.04"></a-plane>
 
-  <!-- Arquitectura: tres alas expositivas -->
-  <a-box position="0 3.7 -9.2" width="19" height="7.4" depth=".42"
-         material="color:#ece9e2; roughness:.82"></a-box>
+  <!-- Arquitectura principal -->
+  <a-box position="0 3.9 -9.8" width="20.5" height="7.8" depth=".46"
+         material="color:#efe7da; roughness:.88"></a-box>
 
-  <a-box position="-8.4 3.55 -1.9" rotation="0 18 0" width="10.8" height="7.1" depth=".36"
-         material="color:#e7e3dc; roughness:.84"></a-box>
+  <a-box position="-9.5 3.7 -1.8" rotation="0 16 0" width="11.2" height="7.4" depth=".40"
+         material="color:#f4ede2; roughness:.88"></a-box>
 
-  <a-box position="8.4 3.55 -1.9" rotation="0 -18 0" width="10.8" height="7.1" depth=".36"
-         material="color:#e7e3dc; roughness:.84"></a-box>
+  <a-box position="9.5 3.7 -1.8" rotation="0 -16 0" width="11.2" height="7.4" depth=".40"
+         material="color:#f4ede2; roughness:.88"></a-box>
 
-  <!-- Franja luminosa arquitectónica -->
-  <a-box position="0 7.45 -8.94" width="18.2" height=".08" depth=".09"
-         material="color:#78d6e6; emissive:#78d6e6; emissiveIntensity:.7"></a-box>
-  <a-box position="-8.16 7.08 -1.82" rotation="0 18 0" width="10.1" height=".07" depth=".08"
-         material="color:#78d6e6; emissive:#78d6e6; emissiveIntensity:.55"></a-box>
-  <a-box position="8.16 7.08 -1.82" rotation="0 -18 0" width="10.1" height=".07" depth=".08"
-         material="color:#78d6e6; emissive:#78d6e6; emissiveIntensity:.55"></a-box>
+  <!-- Gran plano almagre, referencia gráfica -->
+  <a-box position="-6.1 4.65 -9.48" width="5.1" height="5.45" depth=".12"
+         material="color:#9f4a35; roughness:.72"></a-box>
 
-  <!-- Título de sala flotante -->
-  <a-entity position="0 6.15 -8.72">
-    <a-text value="SALA 01" align="center" width="4" color="#7a858a"></a-text>
-    <a-text value="SEVILLA 1927" align="center" position="0 -.62 0" width="8.6" color="#171a1d"></a-text>
-    <a-text value="El homenaje a Gongora y la construccion simbolica de una generacion"
-            align="center" position="0 -1.23 0" width="9.5" color="#656a6c"></a-text>
-  </a-entity>
+  <!-- Titular mural -->
+  <a-text value="1927" position="-8.15 6.55 -9.32" width="4.0" color="#f7f1e8"></a-text>
+  <a-text value="SEVILLA" position="-8.15 5.70 -9.32" width="4.6" color="#f7f1e8"></a-text>
+  <a-text value="PUNTO DE ENCUENTRO" position="-8.15 4.93 -9.32" width="3.4" color="#e4d5c6"></a-text>
+
+  <!-- Línea / trazo fluido -->
+  <a-box position="-1.7 6.85 -9.35" width="7.8" height=".18" depth=".12"
+         rotation="0 0 -8" material="color:#9f4a35"></a-box>
+  <a-box position="3.8 6.35 -9.34" width="5.1" height=".12" depth=".12"
+         rotation="0 0 12" material="color:#9f4a35"></a-box>
 
   <!-- Obras muro frontal -->
-  <a-box position="-5.55 3.25 -8.94" width="3.78" height="2.7" depth=".12"
-         material="color:#11161b; metalness:.4; roughness:.3"></a-box>
-  <a-plane class="clickable artwork"
-           data-title="Sevilla 1927"
-           data-text="Imagen provisional. En la versión final incorporaremos título, autoría, fecha, procedencia, derechos y contexto curatorial."
-           position="-5.55 3.25 -8.86" width="3.48" height="2.40" material="src:#f1"></a-plane>
-
-  <a-box position="0 3.25 -8.94" width="3.78" height="2.7" depth=".12"
-         material="color:#11161b; metalness:.4; roughness:.3"></a-box>
+  <a-box position="-1.4 3.65 -9.34" width="3.9" height="2.9" depth=".13"
+         material="color:#151311; roughness:.35"></a-box>
   <a-plane class="clickable artwork"
            data-title="Ateneo de Sevilla"
-           data-text="Imagen provisional. Esta ficha podrá enlazar con documentos, audio, vídeo y una explicación ampliada."
-           position="0 3.25 -8.86" width="3.48" height="2.40" material="src:#f2"></a-plane>
+           data-text="Imagen provisional. La ficha final incorporará título, autoría, fecha, procedencia, derechos y contexto histórico."
+           position="-1.4 3.65 -9.25" width="3.58" height="2.56" material="src:#f2"></a-plane>
 
-  <a-box position="5.55 3.25 -8.94" width="3.78" height="2.7" depth=".12"
-         material="color:#11161b; metalness:.4; roughness:.3"></a-box>
+  <a-box position="4.2 3.65 -9.34" width="3.9" height="2.9" depth=".13"
+         material="color:#151311; roughness:.35"></a-box>
   <a-plane class="clickable artwork"
            data-title="Homenaje a Góngora"
            data-text="Imagen provisional para el núcleo documental del homenaje sevillano de 1927."
-           position="5.55 3.25 -8.86" width="3.48" height="2.40" material="src:#f3"></a-plane>
+           position="4.2 3.65 -9.25" width="3.58" height="2.56" material="src:#f3"></a-plane>
 
-  <!-- Cartelas como placas -->
-  <a-plane position="-5.55 1.64 -8.82" width="3.46" height=".42"
-           material="color:#f4f1ea; opacity:.96; transparent:true"></a-plane>
-  <a-text value="01  Sevilla 1927" position="-6.98 1.66 -8.76" width="2.9" color="#2b3134"></a-text>
+  <!-- Cartelas -->
+  <a-plane position="-1.4 1.92 -9.25" width="3.58" height=".44" material="color:#f7f1e8"></a-plane>
+  <a-text value="01 · ATENEO DE SEVILLA" position="-2.95 1.96 -9.18" width="3.1" color="#342d28"></a-text>
 
-  <a-plane position="0 1.64 -8.82" width="3.46" height=".42"
-           material="color:#f4f1ea; opacity:.96; transparent:true"></a-plane>
-  <a-text value="02  Ateneo de Sevilla" position="-1.44 1.66 -8.76" width="2.9" color="#2b3134"></a-text>
-
-  <a-plane position="5.55 1.64 -8.82" width="3.46" height=".42"
-           material="color:#f4f1ea; opacity:.96; transparent:true"></a-plane>
-  <a-text value="03  Homenaje a Gongora" position="4.11 1.66 -8.76" width="2.9" color="#2b3134"></a-text>
+  <a-plane position="4.2 1.92 -9.25" width="3.58" height=".44" material="color:#f7f1e8"></a-plane>
+  <a-text value="02 · HOMENAJE A GONGORA" position="2.65 1.96 -9.18" width="3.1" color="#342d28"></a-text>
 
   <!-- Ala izquierda -->
-  <a-box position="-9.03 3.2 -2.15" rotation="0 18 0" width="3.72" height="2.64" depth=".12"
-         material="color:#12161b; metalness:.45; roughness:.28"></a-box>
+  <a-box position="-10.0 4.55 -2.1" rotation="0 16 0" width="10.0" height="1.2" depth=".10"
+         material="color:#9f4a35"></a-box>
+
+  <a-box position="-9.5 3.10 -2.0" rotation="0 16 0" width="3.75" height="2.75" depth=".12"
+         material="color:#171411"></a-box>
   <a-plane class="clickable artwork"
            data-title="Los protagonistas"
-           data-text="Núcleo provisional dedicado a los autores, artistas y redes personales e institucionales."
-           position="-8.98 3.2 -2.12" rotation="0 18 0" width="3.42" height="2.34" material="src:#f4"></a-plane>
+           data-text="Núcleo provisional dedicado a autores, artistas y redes personales e institucionales."
+           position="-9.44 3.10 -1.97" rotation="0 16 0" width="3.45" height="2.45" material="src:#f4"></a-plane>
 
-  <a-box position="-6.0 3.2 -3.13" rotation="0 18 0" width="3.72" height="2.64" depth=".12"
-         material="color:#12161b; metalness:.45; roughness:.28"></a-box>
+  <a-box position="-6.15 3.10 -2.95" rotation="0 16 0" width="3.75" height="2.75" depth=".12"
+         material="color:#171411"></a-box>
   <a-plane class="clickable artwork"
-           data-title="Redes culturales"
-           data-text="Este espacio podrá articular revistas, instituciones, correspondencias y sociabilidad cultural."
-           position="-5.95 3.2 -3.10" rotation="0 18 0" width="3.42" height="2.34" material="src:#f5"></a-plane>
+           data-title="Revistas y redes"
+           data-text="Espacio para revistas, instituciones, correspondencias y sociabilidad cultural."
+           position="-6.09 3.10 -2.92" rotation="0 16 0" width="3.45" height="2.45" material="src:#f5"></a-plane>
 
   <!-- Ala derecha -->
-  <a-box position="9.03 3.2 -2.15" rotation="0 -18 0" width="3.72" height="2.64" depth=".12"
-         material="color:#12161b; metalness:.45; roughness:.28"></a-box>
-  <a-plane class="clickable artwork"
-           data-title="Vanguardias y artes"
-           data-text="Cruces entre poesía, pintura, cine, teatro, música y cultura visual."
-           position="8.98 3.2 -2.12" rotation="0 -18 0" width="3.42" height="2.34" material="src:#f5"></a-plane>
+  <a-box position="10.0 4.55 -2.1" rotation="0 -16 0" width="10.0" height="1.2" depth=".10"
+         material="color:#9f4a35"></a-box>
 
-  <a-box position="6.0 3.2 -3.13" rotation="0 -18 0" width="3.72" height="2.64" depth=".12"
-         material="color:#12161b; metalness:.45; roughness:.28"></a-box>
+  <a-box position="9.5 3.10 -2.0" rotation="0 -16 0" width="3.75" height="2.75" depth=".12"
+         material="color:#171411"></a-box>
+  <a-plane class="clickable artwork"
+           data-title="Vanguardias"
+           data-text="Cruces entre poesía, pintura, cine, teatro, música y cultura visual."
+           position="9.44 3.10 -1.97" rotation="0 -16 0" width="3.45" height="2.45" material="src:#f5"></a-plane>
+
+  <a-box position="6.15 3.10 -2.95" rotation="0 -16 0" width="3.75" height="2.75" depth=".12"
+         material="color:#171411"></a-box>
   <a-plane class="clickable artwork"
            data-title="Legado"
-           data-text="Recepción, memoria, instituciones y nuevas formas de recontextualización del 27."
-           position="5.95 3.2 -3.10" rotation="0 -18 0" width="3.42" height="2.34" material="src:#f6"></a-plane>
+           data-text="Recepción, memoria, instituciones y recontextualización contemporánea del 27."
+           position="6.09 3.10 -2.92" rotation="0 -16 0" width="3.45" height="2.45" material="src:#f6"></a-plane>
 
-  <!-- Elemento escultórico central / identidad metaversal -->
-  <a-entity position="0 2.5 1.2"
-            geometry="primitive:torus; radius:1.65; radiusTubular:.055; segmentsRadial:18; segmentsTubular:72"
-            material="color:#c7a96b; metalness:.85; roughness:.18"
-            animation="property:rotation; to:0 360 0; loop:true; dur:24000; easing:linear"></a-entity>
+  <!-- Escultura central: 27 fragmentado -->
+  <a-entity position="0 2.35 1.7">
+    <a-box width=".34" height="3.55" depth=".34" position="-1.12 0 0"
+           rotation="0 0 -13" material="color:#9f4a35; roughness:.32"></a-box>
+    <a-box width="2.15" height=".34" depth=".34" position="-0.35 1.28 0"
+           rotation="0 0 -18" material="color:#9f4a35; roughness:.32"></a-box>
+    <a-box width="2.05" height=".34" depth=".34" position="-0.18 -.05 0"
+           rotation="0 0 -34" material="color:#9f4a35; roughness:.32"></a-box>
+    <a-box width="2.05" height=".34" depth=".34" position="1.07 1.32 .05"
+           rotation="0 0 9" material="color:#efe7da; roughness:.34"></a-box>
+    <a-box width=".34" height="3.2" depth=".34" position="1.23 -.15 .05"
+           rotation="0 0 8" material="color:#efe7da; roughness:.34"></a-box>
+    <a-box width="1.4" height=".34" depth=".34" position=".63 -.95 .05"
+           rotation="0 0 -8" material="color:#efe7da; roughness:.34"></a-box>
+    <a-animation attribute="rotation" to="0 360 0" dur="30000" repeat="indefinite" easing="linear"></a-animation>
+  </a-entity>
 
-  <a-entity position="0 2.5 1.2" rotation="62 0 0"
-            geometry="primitive:torus; radius:1.28; radiusTubular:.035; segmentsRadial:18; segmentsTubular:64"
-            material="color:#78d6e6; emissive:#78d6e6; emissiveIntensity:.45; opacity:.82; transparent:true"
-            animation="property:rotation; to:62 -360 0; loop:true; dur:18000; easing:linear"></a-entity>
+  <!-- Banda suspendida / gesto metaversal -->
+  <a-box position="0 5.8 1.7" width="8.5" height=".11" depth=".18"
+         rotation="0 0 -12"
+         material="color:#9f4a35; emissive:#5d2018; emissiveIntensity:.18"
+         animation="property:rotation; dir:alternate; loop:true; dur:6500; to:0 0 8"></a-box>
+  <a-box position="0 4.95 1.7" width="6.2" height=".07" depth=".12"
+         rotation="0 0 10"
+         material="color:#efe7da; emissive:#8b7969; emissiveIntensity:.08"
+         animation="property:rotation; dir:alternate; loop:true; dur:8200; to:0 0 -8"></a-box>
 
-  <a-text value="1927" align="center" position="0 2.40 1.22" width="4.2" color="#f0eee8"></a-text>
-
-  <!-- Holograma de orientación -->
-  <a-plane position="-4.9 1.75 3.3" rotation="0 24 0" width="3.6" height="2.15"
-           material="color:#17232a; opacity:.74; transparent:true; side:double; emissive:#10222a; emissiveIntensity:.18"></a-plane>
-  <a-text value="RECORRIDO" position="-6.15 2.47 3.22" rotation="0 24 0" width="2.5" color="#78d6e6"></a-text>
+  <!-- Señalética flotante -->
+  <a-plane position="-4.9 1.9 4.0" rotation="0 23 0" width="3.8" height="2.35"
+           material="color:#efe7da; opacity:.95; transparent:true"></a-plane>
+  <a-text value="RECORRIDO" position="-6.15 2.67 3.90" rotation="0 23 0" width="2.5" color="#9f4a35"></a-text>
   <a-text value="01  Sevilla 1927\n02  Protagonistas\n03  Vanguardias\n04  Exilio y legado"
-          position="-6.15 2.02 3.20" rotation="0 24 0" width="2.7" color="#e9ecec"></a-text>
+          position="-6.15 2.12 3.88" rotation="0 23 0" width="2.65" color="#342d28"></a-text>
 
-  <!-- Portal a siguiente sala -->
-  <a-box position="0 2.0 8.0" width="4.4" height="4.0" depth=".18"
-         material="color:#151a20; metalness:.35; roughness:.28"></a-box>
-  <a-box position="0 2.0 7.86" width="3.75" height="3.35" depth=".12"
-         material="color:#0d1115"></a-box>
-  <a-box position="0 4.08 7.82" width="4.5" height=".055" depth=".06"
-         material="color:#78d6e6; emissive:#78d6e6; emissiveIntensity:.95"
-         animation="property:material.emissiveIntensity; dir:alternate; loop:true; dur:1700; to:.30"></a-box>
-  <a-text value="SALA 02" align="center" position="0 3.16 7.72" width="3.4" color="#7fd9e7"></a-text>
-  <a-text value="PROTAGONISTAS" align="center" position="0 2.46 7.70" width="4.4" color="#f0eee8"></a-text>
-  <a-text value="proxima apertura" align="center" position="0 1.93 7.70" width="2.8" color="#8e989d"></a-text>
+  <!-- Portal a sala 2 -->
+  <a-box position="0 2.15 8.7" width="5.1" height="4.3" depth=".20"
+         material="color:#9f4a35; roughness:.54"></a-box>
+  <a-box position="0 2.12 8.52" width="4.35" height="3.55" depth=".17"
+         material="color:#171411"></a-box>
+  <a-text value="SALA 02" align="center" position="0 3.28 8.35" width="3.1" color="#d8b6a9"></a-text>
+  <a-text value="PROTAGONISTAS" align="center" position="0 2.52 8.34" width="4.6" color="#f7f1e8"></a-text>
+  <a-text value="proxima apertura" align="center" position="0 1.86 8.34" width="2.7" color="#9a918a"></a-text>
 
   <!-- Luz -->
-  <a-light type="ambient" intensity=".45" color="#dce3e6"></a-light>
-  <a-light type="directional" intensity=".55" color="#f7f3e8" position="-5 9 4"></a-light>
-  <a-light type="point" intensity=".65" distance="14" decay="2" color="#d8f8ff" position="0 7 -5"></a-light>
-  <a-light type="point" intensity=".40" distance="10" decay="2" color="#ffdca4" position="0 5.3 1.2"></a-light>
+  <a-light type="ambient" intensity=".55" color="#efe2d5"></a-light>
+  <a-light type="directional" intensity=".48" color="#fff4e8" position="-5 9 5"></a-light>
+  <a-light type="point" intensity=".55" distance="14" decay="2" color="#d98c73" position="-2 7 -5"></a-light>
+  <a-light type="point" intensity=".32" distance="12" decay="2" color="#f1e1c8" position="0 5 2"></a-light>
 
   <!-- Cámara -->
-  <a-entity position="0 1.65 5.0">
+  <a-entity position="0 1.65 5.6">
     <a-camera wasd-controls="acceleration:13" look-controls>
       <a-cursor raycaster="objects:.clickable"
-                color="#78d6e6"
+                color="#f7f1e8"
                 geometry="primitive:ring; radiusInner:.006; radiusOuter:.010"></a-cursor>
     </a-camera>
   </a-entity>
