@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Museo Virtual de la Generación del 27</title>
+<script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+<style>
+  body { margin:0; font-family:Arial,sans-serif; }
+  #intro {
+    position:fixed; z-index:20; inset:0; display:flex; align-items:center; justify-content:center;
+    background:rgba(20,18,16,.92); color:#fff;
+  }
+  #card { max-width:640px; margin:24px; padding:28px; background:#f4efe6; color:#201d19; border-radius:10px; }
+  #card h1 { font-family:Georgia,serif; margin-top:0; }
+  #enter { border:0; padding:12px 18px; background:#2d2a26; color:#fff; border-radius:6px; cursor:pointer; }
+  #help { position:fixed; z-index:10; left:12px; bottom:12px; background:rgba(0,0,0,.62); color:white; padding:9px 12px; border-radius:6px; font-size:13px; }
+</style>
+</head>
+<body>
+<div id="intro">
+  <div id="card">
+    <h1>Museo Virtual de la Generación del 27</h1>
+    <p>Prototipo para el Congreso de la Generación del 27 · Sevilla 2027.</p>
+    <p>Recorre la sala con <strong>WASD</strong> o las flechas. Arrastra con el ratón para mirar. En móvil, toca y arrastra.</p>
+    <button id="enter">Entrar al museo</button>
+  </div>
+</div>
+<div id="help">WASD / flechas · ratón para mirar · haz clic en las cartelas</div>
+
+<a-scene renderer="antialias: true; colorManagement: true" background="color: #d9d4ca">
+  <a-assets>
+    <img id="f1" src="assets/img/foto-01.svg">
+    <img id="f2" src="assets/img/foto-02.svg">
+    <img id="f3" src="assets/img/foto-03.svg">
+    <img id="f4" src="assets/img/foto-04.svg">
+    <img id="f5" src="assets/img/foto-05.svg">
+    <img id="f6" src="assets/img/foto-06.svg">
+  </a-assets>
+
+  <a-plane rotation="-90 0 0" width="18" height="14" color="#c9c1b5"></a-plane>
+  <a-plane position="0 4 -7" width="18" height="8" color="#f2eee7"></a-plane>
+  <a-plane position="-9 4 0" rotation="0 90 0" width="14" height="8" color="#ece7df"></a-plane>
+  <a-plane position="9 4 0" rotation="0 -90 0" width="14" height="8" color="#ece7df"></a-plane>
+  <a-plane position="0 4 7" rotation="0 180 0" width="18" height="8" color="#f2eee7"></a-plane>
+
+  <a-text value="SEVILLA 1927" position="-3.2 6.3 -6.85" width="7" color="#2c2925"></a-text>
+  <a-text value="El homenaje a Gongora y la configuracion simbolica de una generacion"
+          position="-5.6 5.75 -6.84" width="11" color="#5d564e"></a-text>
+
+  <a-plane position="-5.3 3.35 -6.82" width="3.4" height="2.25" material="src:#f1"></a-plane>
+  <a-plane position="0 3.35 -6.82" width="3.4" height="2.25" material="src:#f2"></a-plane>
+  <a-plane position="5.3 3.35 -6.82" width="3.4" height="2.25" material="src:#f3"></a-plane>
+
+  <a-plane position="-8.82 3.35 -3.1" rotation="0 90 0" width="3.4" height="2.25" material="src:#f4"></a-plane>
+  <a-plane position="8.82 3.35 -3.1" rotation="0 -90 0" width="3.4" height="2.25" material="src:#f5"></a-plane>
+  <a-plane position="0 3.35 6.82" rotation="0 180 0" width="3.4" height="2.25" material="src:#f6"></a-plane>
+
+  <a-text value="Fotografia 1\nContexto y procedencia" position="-6.4 1.85 -6.78" width="2.4" color="#2c2925"></a-text>
+  <a-text value="Fotografia 2\nAteneo de Sevilla" position="-1.15 1.85 -6.78" width="2.4" color="#2c2925"></a-text>
+  <a-text value="Fotografia 3\nHomenaje a Gongora" position="4.1 1.85 -6.78" width="2.4" color="#2c2925"></a-text>
+
+  <a-box position="0 1.7 6.55" depth=".25" width="3.2" height="3.4" color="#3e3a35"></a-box>
+  <a-box position="0 1.6 6.35" depth=".18" width="2.55" height="2.8" color="#151515"></a-box>
+  <a-text value="PROXIMA SALA\nProtagonistas" position="-1.1 3.7 6.3" rotation="0 180 0" width="2.4" color="#2c2925"></a-text>
+
+  <a-light type="ambient" intensity="0.8" color="#fff7e8"></a-light>
+  <a-light type="directional" intensity="0.45" position="-2 6 3"></a-light>
+
+  <a-entity position="0 1.65 3.8">
+    <a-camera wasd-controls="acceleration: 18" look-controls>
+      <a-cursor color="#ffffff" fuse="false"></a-cursor>
+    </a-camera>
+  </a-entity>
+</a-scene>
+
+<script>
+document.getElementById('enter').addEventListener('click', function () {
+  document.getElementById('intro').style.display = 'none';
+});
+</script>
+</body>
+</html>
